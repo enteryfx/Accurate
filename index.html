@@ -5,8 +5,7 @@
 	<meta charset="utf-8">
 	<title>数据开放大赛</title>
 	<link rel="stylesheet" href="icon/iconfont.css">
-	<script src="js/jquery.min.js"></script>
-
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.1/jquery.js"></script>
 	<script src="js/echarts.js"></script>
 </head>
 
@@ -37,212 +36,6 @@
 				<div class="com-count-title">帮扶总量统dd计</div>
 				<!-- 绿色：帮扶总量  红色：经过帮扶后已脱离低收入群体 蓝色：正在帮扶人数 -->
 				<div id="main" class="com-screen-content2">
-					<script>
-						$(function () {
-							var myChart = echarts.init(document.getElementById('main'));
-							myChart.showLoading();
-							$.get('宜春.json', function (geoJson) {
-								myChart.hideLoading();
-								echarts.registerMap('江西', geoJson);
-								myChart.setOption(option = {
-									backgroundColor: 'transparent',
-									tooltip: {
-										trigger: 'item',
-										formatter: function (params) {
-											//定义一个res变量来保存最终返回的字符结果,并且先把地区名称放到里面
-											var res = params.name + '<br />';
-											//定义一个变量来保存series数据系列
-											var myseries = option.series;
-											//循环遍历series数据系列
-											for (var i = 0; i < myseries.length; i++) {
-												//在内部继续循环series[i],从data中判断：当地区名称等于params.name的时候就将当前数据和名称添加到res中供显示
-												for (var k = 0; k < myseries[i].data.length; k++) {
-													//console.log(myseries[i].data[k].name);
-													//如果data数据中的name和地区名称一样
-													if (myseries[i].data[k].name == params.name) {
-														//将series数据系列每一项中的name和数据系列中当前地区的数据添加到res中
-														res += myseries[i].name + ':' + myseries[i].data[k]
-															.value + '<br />';
-													}
-												}
-											}
-											return res;
-										}
-									},
-									visualMap: {
-										min: 0,
-										max: 2000,
-										text: ['High', 'Low'],
-										realtime: false,
-										calculable: true,
-										inRange: {
-											color: ['#e0ffff', 'red']
-										}
-									},
-									geo: {
-										map: '江西',
-										roam: true,
-										label: {
-											normal: {
-												show: true,
-												color: 'rgba(0,0,0,0.4)'
-											}
-										},
-										roam: true,
-										itemStyle: {
-											normal: {
-												borderColor: 'rgba(0, 0, 0, 0.7)'
-											},
-											emphasis: {
-												areaColor: null,
-												shadowOffsetX: 0,
-												shadowOffsetY: 0,
-												shadowBlur: 20,
-												borderWidth: 0,
-												shadowColor: 'rgba(0, 0, 0, 0.5)'
-											}
-										},
-										"left": 50,
-										"right": 0,
-										"top": 0,
-										"bottom": 0
-									},
-
-									series: [{
-										name: '治愈病例',
-										type: 'map',
-										roam: false,
-										coordinateSystem: 'geo',
-										// geoIndex: 0,
-										label: {
-											normal: {
-												formatter: '{b}',
-												position: 'right',
-												show: false
-											},
-											emphasis: {
-												show: true
-											}
-										},
-										itemStyle: {
-											normal: {
-												color: '#F06C00'
-											}
-										},
-										data: [
-											{
-												name: '宜丰县',
-												value: 222
-											},
-											{
-												name: '上高县',
-												value: 333
-											},
-											{
-												name: '袁州区',
-												value: 432
-											},
-											{
-												name: '万载县',
-												value: 1234
-											},
-											{
-												name: '铜鼓县',
-												value: 324
-											},
-											{
-												name: '樟树市',
-												value: 333
-											},
-											{
-												name: '丰城市',
-												value: 333
-											},
-											{
-												name: '高安市',
-												value: 333
-											},
-											{
-												name: '靖安县',
-												value: 333
-											},
-											{
-												name: '奉新县',
-												value: 333
-											}
-										]
-									},
-									{
-										name: '确诊病例',
-										type: 'map',
-										roam: false,
-										coordinateSystem: 'geo',
-										geoIndex: 0,
-										// tooltip: {show: false},
-										label: {
-											normal: {
-												formatter: '{b}',
-												position: 'right',
-												show: false
-											},
-											emphasis: {
-												show: true
-											}
-										},
-										itemStyle: {
-											normal: {
-												color: '#F06C00'
-											}
-										},
-										data: [
-											{
-												name: '宜丰县',
-												value: 222
-											},
-											{
-												name: '上高县',
-												value: 333
-											},
-											{
-												name: '袁州区',
-												value: 432
-											},
-											{
-												name: '万载县',
-												value: 1234
-											},
-											{
-												name: '铜鼓县',
-												value: 324
-											},
-											{
-												name: '樟树市',
-												value: 333
-											},
-											{
-												name: '丰城市',
-												value: 333
-											},
-											{
-												name: '高安市',
-												value: 333
-											},
-											{
-												name: '靖安县',
-												value: 333
-											},
-											{
-												name: '奉新县',
-												value: 333
-											}
-										]
-									}
-									]
-								});
-							});
-						})
-					</script>
-
 					<div class="com-screen-content">
 						<div id="main2" style="margin-top:10px;width:100%;height:240px;"></div>
 					</div>
@@ -251,6 +44,210 @@
 					<span class="left-bottom"></span>
 					<span class="right-bottom"></span>
 				</div>
+				<script>$(function () {
+						var myChart = echarts.init(document.getElementById('main'));
+						// showloading形成遮罩的效果
+						myChart.showLoading();
+						$.get('宜春.json', function (geoJson) {
+							myChart.hideLoading();
+							echarts.registerMap('江西', geoJson);
+							myChart.setOption(option = {
+								backgroundColor: 'black',
+								tooltip: {
+									trigger: 'item',
+									formatter: function (params) {
+										//定义一个res变量来保存最终返回的字符结果,并且先把地区名称放到里面
+										var res = params.name + '<br />';
+										//定义一个变量来保存series数据系列
+										var myseries = option.series;
+										//循环遍历series数据系列
+										for (var i = 0; i < myseries.length; i++) {
+											//在内部继续循环series[i],从data中判断：当地区名称等于params.name的时候就将当前数据和名称添加到res中供显示
+											for (var k = 0; k < myseries[i].data.length; k++) {
+												//console.log(myseries[i].data[k].name);
+												//如果data数据中的name和地区名称一样
+												if (myseries[i].data[k].name == params.name) {
+													//将series数据系列每一项中的name和数据系列中当前地区的数据添加到res中
+													res += myseries[i].name + ':' + myseries[i].data[k]
+														.value + '<br />';
+												}
+											}
+										}
+										return res;
+									}
+								},
+								visualMap: {
+									min: 0,
+									max: 2000,
+									text: ['High', 'Low'],
+									realtime: false,
+									calculable: true,
+									inRange: {
+										color: ['#e0ffff', 'red']
+									}
+								},
+								geo: {
+									map: '江西',
+									roam: true,
+									label: {
+										normal: {
+											show: true,
+											color: 'rgba(0,0,0,0.4)'
+										}
+									},
+									roam: true,
+									itemStyle: {
+										normal: {
+											borderColor: 'rgba(0, 0, 0, 0.7)'
+										},
+										emphasis: {
+											areaColor: null,
+											shadowOffsetX: 0,
+											shadowOffsetY: 0,
+											shadowBlur: 20,
+											borderWidth: 0,
+											shadowColor: 'rgba(0, 0, 0, 0.5)'
+										}
+									},
+									"left": 50,
+									"right": 0,
+									"top": 0,
+									"bottom": 0
+								},
+
+								series: [{
+									name: '治愈病例',
+									type: 'map',
+									roam: false,
+									coordinateSystem: 'geo',
+									// geoIndex: 0,
+									label: {
+										normal: {
+											formatter: '{b}',
+											position: 'right',
+											show: false
+										},
+										emphasis: {
+											show: true
+										}
+									},
+									itemStyle: {
+										normal: {
+											color: '#F06C00'
+										}
+									},
+									data: [
+										{
+											name: '宜丰县',
+											value: 222
+										},
+										{
+											name: '上高县',
+											value: 333
+										},
+										{
+											name: '袁州区',
+											value: 432
+										},
+										{
+											name: '万载县',
+											value: 1234
+										},
+										{
+											name: '铜鼓县',
+											value: 324
+										},
+										{
+											name: '樟树市',
+											value: 333
+										},
+										{
+											name: '丰城市',
+											value: 333
+										},
+										{
+											name: '高安市',
+											value: 333
+										},
+										{
+											name: '靖安县',
+											value: 333
+										},
+										{
+											name: '奉新县',
+											value: 333
+										}
+									]
+								},
+								{
+									name: '确诊病例',
+									type: 'map',
+									roam: false,
+									coordinateSystem: 'geo',
+									geoIndex: 0,
+									// tooltip: {show: false},
+									label: {
+										normal: {
+											formatter: '{b}',
+											position: 'right',
+											show: false
+										},
+										emphasis: {
+											show: true
+										}
+									},
+									itemStyle: {
+										normal: {
+											color: '#F06C00'
+										}
+									},
+									data: [
+										{
+											name: '宜丰县',
+											value: 222
+										},
+										{
+											name: '上高县',
+											value: 333
+										},
+										{
+											name: '袁州区',
+											value: 432
+										},
+										{
+											name: '万载县',
+											value: 1234
+										},
+										{
+											name: '铜鼓县',
+											value: 324
+										},
+										{
+											name: '樟树市',
+											value: 333
+										},
+										{
+											name: '丰城市',
+											value: 333
+										},
+										{
+											name: '高安市',
+											value: 333
+										},
+										{
+											name: '靖安县',
+											value: 333
+										},
+										{
+											name: '奉新县',
+											value: 333
+										}
+									]
+								}
+								]
+							});
+						});
+					})</script>
 			</div>
 			<div class="count-resource q2">
 				<div class="com-count-title">特殊帮扶</div>
@@ -368,8 +365,9 @@
 		<div class="clearfix"></div>
 	</div>
 
-	<script type="text/javascript">
-		//根据不同的分辨率调用不同的css和js
+	<script>
+
+		// 根据不同的分辨率调用不同的css和js
 		if (window.screen.width >= 1600) {
 			document.write("<link href='css/test-1920.css' rel='stylesheet' type='text/css'>");
 
@@ -384,8 +382,9 @@
 
 			document.writeln("<script type=\"text/javascript\" src=\"js/test-1024.js\"><\/script>");
 		}
+
 	</script>
-	<!--大屏-->
+	<!-- 大屏 -->
 	<script type="text/javascript">
 		function autoScroll(obj) {
 			$(obj).find("ul").animate({
