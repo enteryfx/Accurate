@@ -504,7 +504,7 @@ function init_myChart1() {
 				radius: '30%',
 				center: ['50%', '50%'],
 				data: [
-					{ value: 435, name: '公安局' },
+					{ value: 435, name: '袁州区' },
 					{ value: 679, name: '民政局' },
 					{ value: 848, name: '气象局' },
 					{ value: 348, name: '统计局' },
